@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="game-menu">
       <div className="menu-center">
-        <button onClick={() => router.push("/game")}>Start Game</button>
+        <button onClick={() => router.push("/game/options")}>Start Game</button>
         <button onClick={() => router.push("/leaderboard")}>Leaderboards</button>
       </div>
     </div>

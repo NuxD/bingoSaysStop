@@ -1,74 +1,45 @@
-'use client'
-import React, {useState} from 'react';
-
+"use client";
+import React, { useState } from "react";
 
 function game() {
-  const [inputType, setInputType] = useState("city");
-  const [input, setInput] = useState("");
+  const contextList = ["Cities", "Animals", "Countries"];
+  const maxContext = contextList.length - 1;
+  const [contextIndex, setContextIndex] = useState(0);
+  //const [context, setContext] = useState("countries");
+  const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState(null);
 
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
+  const handleInputSubmit = () => {
+    const lowerInputValue = inputValue.toLowerCase();
+    console.log(lowerInputValue);
+    console.log(alphabet)
+    if (contextIndex < maxContext) {
+      setContextIndex(contextIndex + 1);
+    }else{
+      setContextIndex(0);
+    }
+    setInputValue("");
+    // Logic should happen here maybe?
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (inputType === "city") {
-      // Fetch city data
-      // Update the API route URL and the state handling accordingly
-    } else if (inputType === "country") {
-      // Fetch country data
-      // Update the API route URL and the state handling accordingly
-    } else if (inputType === "animal") {
-      // Fetch animal data
-      // Update the API route URL and the state handling accordingly
+  // Handles when Enter key is pressed after input
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleInputSubmit();
     }
-    // Handle API requests and results
   };
 
   return (
     <div className="game-menu">
       <div className="menu-center">
-        <div>
-          <div>
-            <button onClick={() => setInputType("city")}>City</button>
-            <button onClick={() => setInputType("country")}>Country</button>
-            <button onClick={() => setInputType("animal")}>Animal</button>
-          </div>
-          <form onSubmit={handleSubmit}>
-            {inputType === "city" && (
-              <input
-                type="text"
-                placeholder="Enter a city name"
-                value={input}
-                onChange={handleInputChange}
-              />
-            )}
-            {inputType === "country" && (
-              <input
-                type="text"
-                placeholder="Enter a country name"
-                value={input}
-                onChange={handleInputChange}
-              />
-            )}
-            {inputType === "animal" && (
-              <input
-                type="text"
-                placeholder="Enter an animal name"
-                value={input}
-                onChange={handleInputChange}
-              />
-            )}
-            <button type="submit">Search</button>
-          </form>
-          {result && (
-            <div>
-              <h2>Result</h2>
-              {/* Display the result data here */}
-            </div>
-          )}
-        </div>
+        <h1>{contextList[contextIndex]}</h1>
+        <input
+          id="inputValue"
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
       </div>
     </div>
   );
